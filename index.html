@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100b19">
+  <title>MPC Archive</title>
+  <meta name="description" content="The public home of MPC Minecraft Bedrock packs.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="glow glow-one"></div><div class="glow glow-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">M</span><span>MPC <b>ARCHIVE</b><small>THE PACK LIBRARY</small></span></a>
+    <button id="admin-open" class="outline-button">Admin login</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse"></span> COMMUNITY PACK LIBRARY</div>
+      <h1>Your packs.<br><span>One archive.</span></h1>
+      <p>Browse, discover and download Minecraft Bedrock packs from the MPC collection.</p>
+      <div class="hero-stats"><div><strong id="pack-count">—</strong><small>PACKS</small></div><i></i><div><strong>BEDROCK</strong><small>EDITION</small></div><i></i><div><strong>PUBLIC</strong><small>ACCESS</small></div></div>
+    </section>
+
+    <section class="library">
+      <div class="section-heading"><div><div class="eyebrow">THE COLLECTION</div><h2>Browse packs</h2></div><span id="status" class="status">Connecting…</span></div>
+      <div class="toolbar">
+        <label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search packs…" autocomplete="off"></label>
+        <div id="filters" class="filters">
+          <button class="filter active" data-category="All">All</button>
+          <button class="filter" data-category="Client">Client</button>
+          <button class="filter" data-category="PvP">PvP</button>
+          <button class="filter" data-category="Performance">Performance</button>
+          <button class="filter" data-category="Experimental">Experimental</button>
+          <button class="filter" data-category="Other">Other</button>
+        </div>
+      </div>
+      <div id="pack-grid" class="pack-grid">
+        <div class="empty-state"><div class="loader"></div><p>Loading the archive…</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="footer-brand">MPC <b>ARCHIVE</b></div><p>Independent community project. Not affiliated with Mojang or Microsoft.</p><span>© <span id="year"></span> MPC Archive</span></footer>
+
+  <div id="admin-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <button class="close" id="modal-close" aria-label="Close">×</button>
+      <div class="eyebrow">OWNER ACCESS</div><h2 id="modal-title">Archive admin</h2>
+      <p class="muted">Sign in with the administrator email configured for this archive.</p>
+      <div id="login-panel">
+        <label class="field-label" for="admin-email">Email address</label>
+        <input id="admin-email" class="field" type="email" placeholder="you@example.com">
+        <button id="login-button" class="primary-button">Send sign-in link</button>
+      </div>
+      <div id="upload-panel" class="hidden">
+        <div class="signed-in">Signed in as <strong id="signed-email"></strong></div>
+        <form id="upload-form">
+          <label class="field-label">Pack name<input class="field" name="name" required maxlength="70" placeholder="MPC Client"></label>
+          <label class="field-label">Pack ID<input class="field" name="slug" required maxlength="50" pattern="[a-zA-Z0-9-]+" placeholder="mpc-client"><small>Use the same ID for future versions of this pack.</small></label>
+          <div class="two-fields">
+            <label class="field-label">Version<input class="field" name="version" required placeholder="1.0"></label>
+            <label class="field-label">Category<select class="field" name="category"><option>Client</option><option>PvP</option><option>Performance</option><option>Experimental</option><option>Other</option></select></label>
+          </div>
+          <label class="field-label">Description<textarea class="field" name="description" rows="3" maxlength="500" placeholder="What does this pack do?"></textarea></label>
+          <label class="field-label">Pack file (.mcpack)<input class="field file-field" name="packfile" type="file" accept=".mcpack,application/octet-stream" required></label>
+          <button class="primary-button" id="upload-button" type="submit">Upload pack</button>
+        </form>
+        <button id="logout-button" class="text-button">Sign out</button>
+      </div>
+      <p id="modal-message" class="message" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
